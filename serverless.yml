@@ -1,0 +1,24 @@
+service: graphql-lambda
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-2
+  deploymentBucket: apollo-lambda-deploy
+plugins:
+  # - serverless-webpack
+  - serverless-offline
+custom:
+  "serverless-offline":
+    port: 4000
+  # webpack:
+  #   includeModules: true
+  #   webpackConfig: webpack.config.js
+  #   packager: npm
+functions:
+  graphql:
+    handler: handler.graphqlHandler
+    events:
+      - http:
+          path: graphql
+          method: any
+          cors: true
